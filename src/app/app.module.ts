@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration, withEventReplay, withNoHttpTransferCache } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from "@angular/common/http";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreModule } from "@ngrx/store";
+import { AppRoutingModule } from "@spartacus/storefront";
 import { AppComponent } from './app.component';
+import { SpartacusModule } from './spartacus/spartacus.module';
 
 @NgModule({
   declarations: [
@@ -10,9 +14,12 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    StoreModule.forRoot({}),
+    AppRoutingModule,
+    EffectsModule.forRoot([]),
+    SpartacusModule
   ],
-  providers: [],
+  providers: [provideHttpClient(withFetch(), withInterceptorsFromDi()), provideClientHydration(withEventReplay(), withIncrementalHydration(), withNoHttpTransferCache())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

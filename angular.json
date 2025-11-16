@@ -36,12 +36,39 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@spartacus/smartedit/assets",
+                "output": "assets/"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles/spartacus/user.scss",
+              "src/styles/spartacus/cart.scss",
+              "src/styles/spartacus/order.scss",
+              "src/styles/spartacus/checkout.scss",
+              "src/styles/spartacus/storefinder.scss",
+              "src/styles/spartacus/asm.scss",
+              "src/styles/spartacus/product.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/"
+              ],
+              "sass": {
+                "silenceDeprecations": [
+                  "import"
+                ]
+              }
+            },
+            "server": "src/main.server.ts",
+            "prerender": false,
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -49,7 +76,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "3.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -63,6 +90,10 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "noSsr": {
+              "ssr": false,
+              "prerender": false
             }
           },
           "defaultConfiguration": "production"
@@ -71,10 +102,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "test-spartacus-hyd123:build:production"
+              "buildTarget": "test-spartacus-hyd123:build:production,noSsr"
             },
             "development": {
-              "buildTarget": "test-spartacus-hyd123:build:development"
+              "buildTarget": "test-spartacus-hyd123:build:development,noSsr"
             }
           },
           "defaultConfiguration": "development"
@@ -95,12 +126,29 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@spartacus/smartedit/assets",
+                "output": "assets/"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles/spartacus/user.scss",
+              "src/styles/spartacus/cart.scss",
+              "src/styles/spartacus/order.scss",
+              "src/styles/spartacus/checkout.scss",
+              "src/styles/spartacus/storefinder.scss",
+              "src/styles/spartacus/asm.scss",
+              "src/styles/spartacus/product.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/"
+              ]
+            }
           }
         }
       }
