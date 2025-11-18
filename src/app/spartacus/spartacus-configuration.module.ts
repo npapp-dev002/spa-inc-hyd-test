@@ -10,11 +10,15 @@ import { defaultCmsContentProviders, layoutConfigFactory, mediaConfig } from "@s
   providers: [provideConfigFactory(layoutConfigFactory), provideConfig(mediaConfig), ...defaultCmsContentProviders, provideConfig(<OccConfig>{
     backend: {
       occ: {
-        baseUrl: 'https://localhost:9002',
+        baseUrl: 'https://40.76.109.9:9002',
       }
     },
   }), provideConfig(<SiteContextConfig>{
-    context: {},
+    context: {
+      baseSite: ['electronics-spa'],
+      currency: ['USD'],
+      language: ['en']
+    },
   }), provideConfig(<I18nConfig>{
     i18n: {
       resources: { en: translationsEn },

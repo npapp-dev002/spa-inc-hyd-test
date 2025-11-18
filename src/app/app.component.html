@@ -1,1 +1,204 @@
+ <div class="chunk-hydration-demo">
+    <header>
+        <h1>🧪 JavaScript Chunks & Incremental Hydration Demo</h1>
+        <p class="subtitle">Demonstrating different loading strategies and hydration patterns</p>
+    </header>
+
+    <nav class="demo-navigation">
+        <button (click)="activeDemo = 'chunks'" [class.active]="activeDemo === 'chunks'">📦 Chunk Loading Demo</button>
+        <button (click)="activeDemo = 'hydration'" [class.active]="activeDemo === 'hydration'">💧 Hydration Strategies</button>
+        <button (click)="activeDemo = 'cart'" [class.active]="activeDemo === 'cart'">🛒 Spartacus Cart Demo</button>
+        <button (click)="activeDemo = 'performance'" [class.active]="activeDemo === 'performance'">⚡ Performance Analysis</button>
+    </nav>
+
+    <!-- Chunk Loading Demo -->
+    <section *ngIf="activeDemo === 'chunks'" class="demo-section">
+        <h2>📦 JavaScript Chunk Loading Strategies</h2>
+        
+        <div class="explanation">
+            <h3>How Chunks Work:</h3>
+            <ul>
+                <li><strong>Initial Bundle:</strong> Contains essential app code loaded immediately</li>
+                <li><strong>Lazy Chunks:</strong> Feature-specific code loaded on-demand</li>
+                <li><strong>Dynamic Imports:</strong> Runtime loading of optional functionality</li>
+                <li><strong>Vendor Chunks:</strong> Third-party libraries separated for caching</li>
+            </ul>
+        </div>
+
+        <!-- Always loaded light component (immediate hydration) -->
+        @defer (when true) {
+            <app-chunk-demo-light></app-chunk-demo-light>
+        } @placeholder {
+            <div class="ssr-placeholder">
+                <h3>🪶 Light Component (SSR Rendered)</h3>
+                <p>This component is server-rendered and will hydrate immediately</p>
+            </div>
+        }
+        
+        <!-- Lazy loaded heavy component with incremental hydration -->
+        @defer (hydrate on interaction) {
+            <app-chunk-demo-heavy></app-chunk-demo-heavy>
+        } @placeholder {
+            <div class="placeholder-chunk">
+                <h3>🎯 Heavy Component (Click to Load & Hydrate)</h3>
+                <p>This component chunk will be loaded AND hydrated only when you interact with this area.</p>
+                <div class="click-hint">👆 Click anywhere here to load the heavy component chunk + hydrate</div>
+                <div class="ssr-note">Currently: SSR rendered, not hydrated</div>
+            </div>
+        }
+        
+        <!-- Viewport-based hydration -->
+        @defer (on viewport) {
+            <app-chunk-demo-dynamic></app-chunk-demo-dynamic>
+        } @placeholder {
+            <div class="viewport-placeholder">
+                <h3>🔄 Dynamic Component (Scroll to Load)</h3>
+                <p>This component will load and hydrate when it enters the viewport</p>
+                <div class="scroll-hint">👇 Scroll down to trigger loading + hydration</div>
+            </div>
+        }
+    </section>
+
+    <!-- Hydration Strategies Demo -->
+    <section *ngIf="activeDemo === 'hydration'" class="demo-section">
+        <h2>💧 Hydration Strategies Comparison</h2>
+        
+        <div class="explanation">
+            <h3>Hydration Types:</h3>
+            <ul>
+                <li><strong>Full Hydration:</strong> All components become interactive immediately</li>
+                <li><strong>Incremental Hydration:</strong> Components hydrate only when needed</li>
+                <li><strong>Selective Hydration:</strong> Only specific components are hydrated</li>
+                <li><strong>Progressive Hydration:</strong> Components hydrate in priority order</li>
+            </ul>
+        </div>
+
+        <!-- Full Hydration Example -->
+        <div class="hydration-example">
+            <h3>🔥 Full Hydration (Traditional)</h3>
+            <app-my-project></app-my-project>
+        </div>
+
+        <!-- Incremental Hydration Example -->
+        <div class="hydration-example">
+            <h3>💧 Incremental Hydration (On Interaction)</h3>
+            @defer (hydrate on interaction) {
+                <app-chunk-demo-heavy></app-chunk-demo-heavy>
+            } @placeholder {
+                <div class="hydration-placeholder">
+                    <p><strong>SSR Content:</strong> Component is server-rendered but not yet interactive</p>
+                    <button disabled>Click me (not interactive yet)</button>
+                    <p><em>Click anywhere to hydrate and make interactive</em></p>
+                </div>
+            }
+        </div>
+
+        <!-- Viewport-based Hydration -->
+        <div class="hydration-example">
+            <h3>👁️ Viewport-based Hydration</h3>
+            @defer (hydrate on viewport) {
+                <app-chunk-demo-dynamic></app-chunk-demo-dynamic>
+            } @placeholder {
+                <div class="hydration-placeholder">
+                    <p><strong>SSR Content:</strong> Waiting to enter viewport for hydration</p>
+                    <div class="loading-indicator">⏳ Scroll down to trigger hydration</div>
+                </div>
+            }
+        </div>
+        
+        <!-- Timer-based Hydration -->
+        <div class="hydration-example">
+            <h3>⏰ Timer-based Hydration (3 seconds)</h3>
+            @defer (hydrate on timer(3s)) {
+                <app-chunk-demo-light></app-chunk-demo-light>
+            } @placeholder {
+                <div class="hydration-placeholder timer-placeholder">
+                    <p><strong>SSR Content:</strong> Will auto-hydrate in 3 seconds</p>
+                    <div class="countdown">⏳ Waiting for timer...</div>
+                </div>
+            }
+        </div>
+        
+        <!-- Spartacus Cart Integration -->
+        <div class="hydration-example">
+            <h3>🛒 Spartacus Cart Integration (On Interaction)</h3>
+            @defer (on interaction) {
+                <app-custom-cart></app-custom-cart>
+            } @placeholder {
+                <div class="hydration-placeholder">
+                    <p><strong>Spartacus Integration:</strong> Custom cart component using Spartacus services</p>
+                    <button disabled>🛒 Cart Features (not interactive yet)</button>
+                    <p><em>Click anywhere to load the cart component and connect to Spartacus</em></p>
+                </div>
+            }
+        </div>
+    </section>
+
+    <!-- Spartacus Cart Demo -->
+    <section *ngIf="activeDemo === 'cart'" class="demo-section">
+        <h2>🛒 Spartacus Cart Integration Demo</h2>
+        
+        <div class="explanation">
+            <h3>Cart Features Demonstrated:</h3>
+            <ul>
+                <li><strong>ActiveCartFacade:</strong> Real-time cart state management</li>
+                <li><strong>Cart Operations:</strong> Add, remove, update quantities</li>
+                <li><strong>User Integration:</strong> Anonymous and authenticated cart handling</li>
+                <li><strong>Performance Analytics:</strong> Cart operation monitoring</li>
+                <li><strong>Incremental Hydration:</strong> Cart loads only when needed</li>
+            </ul>
+        </div>
+        
+        <!-- Spartacus Cart with Incremental Hydration -->
+        @defer (hydrate on interaction) {
+            <app-custom-cart></app-custom-cart>
+        } @placeholder {
+            <div class="placeholder-chunk">
+                <h3>🛒 Interactive Spartacus Cart</h3>
+                <p>This custom component integrates with Spartacus cart services and will be hydrated on interaction.</p>
+                <div class="click-hint">👆 Click here to load the cart component and connect to Spartacus services</div>
+                <div class="ssr-note">Features: Add products, manage cart, view user info, performance analysis</div>
+            </div>
+        }
+    </section>
+
+    <!-- Performance Analysis Demo -->
+    <section *ngIf="activeDemo === 'performance'" class="demo-section">
+        <h2>⚡ Performance Analysis</h2>
+        
+        <div class="performance-metrics">
+            <h3>📊 Current Page Metrics:</h3>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <label>📦 Total Scripts:</label>
+                    <span>{{ performanceMetrics.totalScripts }}</span>
+                </div>
+                <div class="metric">
+                    <label>🧩 Chunk Scripts:</label>
+                    <span>{{ performanceMetrics.chunkScripts }}</span>
+                </div>
+                <div class="metric">
+                    <label>⏱️ Load Time:</label>
+                    <span>{{ performanceMetrics.loadTime }}ms</span>
+                </div>
+                <div class="metric">
+                    <label>💾 Bundle Size:</label>
+                    <span>{{ performanceMetrics.bundleSize }}</span>
+                </div>
+            </div>
+            
+            <button (click)="analyzePerformance()" class="analyze-btn">🔍 Analyze Current Performance</button>
+        </div>
+         
+        <div class="chunk-analysis">
+            <h3>📈 Chunk Loading Analysis:</h3>
+            <div *ngFor="let chunk of performanceMetrics.chunks" class="chunk-item">
+                <span class="chunk-name">{{ chunk.name }}</span>
+                <span class="chunk-size">{{ chunk.size }}</span>
+                <span class="chunk-status" [class]="chunk.status">{{ chunk.status }}</span>
+            </div>
+        </div>
+    </section>
+</div>
 <cx-storefront></cx-storefront>
+

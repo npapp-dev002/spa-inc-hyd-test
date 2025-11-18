@@ -1,0 +1,146 @@
+.my-project-component {
+  padding: 20px;
+  border: 2px solid #007acc;
+  border-radius: 8px;
+  margin: 20px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 123, 204, 0.1);
+  }
+
+  h2 {
+    color: #007acc;
+    margin-bottom: 15px;
+  }
+
+  .hydration-status {
+    background: #e7f3ff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+    p {
+      margin: 5px 0;
+      font-family: 'Courier New', monospace;
+    }
+  }
+
+  .interaction-demo {
+    margin: 20px 0;
+
+    .demo-button, .analysis-button {
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px 5px;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 204, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .demo-button {
+      background: linear-gradient(45deg, #007acc, #0056b3);
+      color: white;
+    }
+
+    .analysis-button {
+      background: linear-gradient(45deg, #28a745, #20c997);
+      color: white;
+    }
+
+    .info {
+      font-size: 0.9em;
+      color: #666;
+      font-style: italic;
+    }
+  }
+
+  .explanation {
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #ffc107;
+
+    h4 {
+      margin-top: 0;
+      color: #856404;
+    }
+
+    ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 8px 0;
+      line-height: 1.4;
+    }
+
+    code {
+      background: #f8f9fa;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+    }
+  }
+
+  .performance-info {
+    background: #e8f5e8;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #28a745;
+    margin-top: 15px;
+
+    h4 {
+      margin-top: 0;
+      color: #155724;
+    }
+
+    p {
+      margin: 8px 0;
+      font-family: 'Courier New', monospace;
+    }
+
+    .note {
+      font-style: italic;
+      font-size: 0.9em;
+      color: #6c757d;
+    }
+  }
+
+  &.placeholder {
+    opacity: 0.7;
+    background-color: #f0f0f0;
+
+    .skeleton {
+      height: 100px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

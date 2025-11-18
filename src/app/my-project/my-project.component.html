@@ -1,0 +1,51 @@
+<!-- This demonstrates incremental hydration in a custom component (NOT a Spartacus component) -->
+<div class="my-project-component" (mouseenter)="onHoverAction()">
+    <h2>🧪 Custom Component with Incremental Hydration</h2>
+    <div class="hydration-status">
+        <p><strong>Status:</strong> {{ isHydrated ? '✅ Hydrated & Interactive' : '⏳ Rendered but Not Hydrated' }}</p>
+        <p><strong>Hydrated at:</strong> {{ hydratedAt || 'Not yet hydrated' }}</p>
+        <p><strong>Current Time:</strong> {{ currentTime }}</p>
+    </div>
+    
+    <div class="interaction-demo">
+        <h3>Interaction Test:</h3>
+        <button (click)="onButtonClick()" class="demo-button">
+            🔥 Click me! ({{ clickCount }} clicks)
+        </button>
+        <button (click)="showChunkAnalysis()" class="analysis-button">
+            📈 Analyze JS Chunks
+        </button>
+                <p class="info">This component was rendered server-side but only became interactive when you first interacted with it.</p>
+    </div>
+    
+    <div class="explanation">
+        <h4>💡 What's happening (TRUE Incremental Hydration):</h4>
+        <ul>
+            <li>This component uses Angular's <code>&#64;defer (hydrate on interaction)</code></li>
+            <li>The component is rendered server-side (present in initial HTML)</li>
+            <li>But it's NOT interactive initially (no event listeners, no Angular binding)</li>
+            <li>On first user interaction, the component becomes hydrated and interactive</li>
+            <li>This saves JS bundle size and improves initial page performance</li>
+            <li>Spartacus components don't support this incremental hydration pattern</li>
+        </ul>
+        
+        <div class="performance-info">
+            <h4>🚀 Performance Metrics:</h4>
+            <p><strong>Component hydrated at:</strong> {{ hydratedAt || 'Not yet hydrated' }}</p>
+            <p><strong>Current time:</strong> {{ currentTime }}</p>
+            <p class="note">Check browser console for detailed hydration analysis</p>
+        </div>
+    </div>
+    
+    <div class="explanation">
+        <h4>💡 What's happening:</h4>
+        <ul>
+            <li>This component uses Angular's <code>&#64;defer (on interaction)</code> from the parent</li>
+            <li>The entire component is lazy-loaded only when needed (not pre-rendered)</li>
+            <li>Once loaded, it's immediately fully interactive (no separate hydration step)</li>
+            <li>Check the browser console to see component lifecycle logs</li>
+            <li>This demonstrates deferred loading - different from incremental hydration</li>
+            <li>Spartacus components don't support this lazy-loading pattern</li>
+        </ul>
+    </div>
+</div>
