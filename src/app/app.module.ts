@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { SpartacusModule } from './spartacus/spartacus.module';
 import { MyProjectComponent } from './my-project/my-project.component';
 import { ChildComponentComponent } from './my-project/child-component/child-component.component';
+import { LazyLoadDirective } from './directives/lazy-load.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,7 @@ import { ChildComponentComponent } from './my-project/child-component/child-comp
   ],
   imports: [
     BrowserModule,
+    LazyLoadDirective,
     StoreModule.forRoot({}),
     AppRoutingModule,
     EffectsModule.forRoot([]),

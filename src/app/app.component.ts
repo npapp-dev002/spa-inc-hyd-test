@@ -34,6 +34,11 @@ export class AppComponent implements OnInit {
     chunks: []
   };
 
+  // Lazy load functions for dynamic imports
+  loadDataIntensive = () => import('./components/data-intensive.component').then(m => ({ DataIntensiveComponent: m.DataIntensiveComponent }));
+  loadFormWizard = () => import('./components/form-wizard.component').then(m => ({ FormWizardComponent: m.FormWizardComponent }));
+  loadMediaPlayer = () => import('./components/media-player.component').then(m => ({ MediaPlayerComponent: m.MediaPlayerComponent }));
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }

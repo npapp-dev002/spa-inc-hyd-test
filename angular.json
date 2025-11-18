@@ -66,7 +66,11 @@
           },
           "configurations": {
             "production": {
-              "optimization": false,
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
               "outputHashing": "all",
               "namedChunks": true,
               "extractLicenses": false,
@@ -75,7 +79,8 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             },
             "noSsr": {
               "ssr": false,
@@ -92,6 +97,7 @@
               "buildTarget": "test-spartacus-hyd123:build:production,noSsr"
             },
             "development": {
+              "hmr": false,
               "buildTarget": "test-spartacus-hyd123:build:development,noSsr"
             }
           },
