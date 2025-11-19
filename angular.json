@@ -66,15 +66,11 @@
           },
           "configurations": {
             "production": {
-              "optimization": {
-                "scripts": true,
-                "styles": true,
-                "fonts": false
-              },
+              "optimization": false,
               "outputHashing": "all",
-              "namedChunks": true,
+              "namedChunks": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": false
             },
             "development": {
               "optimization": false,
@@ -94,11 +90,15 @@
           "configurations": {
             "production": {
               "hmr": false,
-              "buildTarget": "test-spartacus-hyd123:build:production,noSsr"
+              "buildTarget": "test-spartacus-hyd123:build:production"
             },
             "development": {
               "hmr": false,
               "buildTarget": "test-spartacus-hyd123:build:development,noSsr"
+            },
+            "no-hmr": {
+              "buildTarget": "test-spartacus-hyd123:build:development,noSsr",
+              "hmr": false
             }
           },
           "defaultConfiguration": "development"

@@ -20,43 +20,32 @@
             <ul>
                 <li><strong>Initial Bundle:</strong> Contains essential app code loaded immediately</li>
                 <li><strong>Lazy Chunks:</strong> Feature-specific code loaded on-demand</li>
-                <li><strong>Dynamic Imports:</strong> Runtime loading of optional functionality</li>
                 <li><strong>Vendor Chunks:</strong> Third-party libraries separated for caching</li>
             </ul>
         </div>
 
-        <!-- Always loaded light component (immediate hydration) -->
-        @defer (when true) {
+        <!-- Always loaded light component (immediate loading and hydration) -->
+        @defer (hydrate on immediate) {
             <app-chunk-demo-light></app-chunk-demo-light>
         } @placeholder {
             <div class="ssr-placeholder">
                 <h3>🪶 Light Component (SSR Rendered)</h3>
-                <p>This component is server-rendered and will hydrate immediately</p>
+                <p>This component is server-rendered and hydrates immediately</p>
             </div>
         }
         
-        <!-- Lazy loaded heavy component with incremental hydration -->
+        <!-- Incremental hydration - component SSR rendered, hydrates on interaction -->
         @defer (hydrate on interaction) {
             <app-chunk-demo-heavy></app-chunk-demo-heavy>
         } @placeholder {
             <div class="placeholder-chunk">
-                <h3>🎯 Heavy Component (Click to Load & Hydrate)</h3>
-                <p>This component chunk will be loaded AND hydrated only when you interact with this area.</p>
-                <div class="click-hint">👆 Click anywhere here to load the heavy component chunk + hydrate</div>
-                <div class="ssr-note">Currently: SSR rendered, not hydrated</div>
+                <h3>🎯 Heavy Component (Click to Hydrate)</h3>
+                <p>This component is server-rendered but not yet interactive. JavaScript loads when you interact.</p>
+                <div class="click-hint">👆 Click anywhere here to hydrate and make interactive</div>
+                <div class="ssr-note">Currently: SSR rendered, awaiting hydration</div>
             </div>
         }
-        
-        <!-- Viewport-based hydration -->
-        @defer (on viewport) {
-            <app-chunk-demo-dynamic></app-chunk-demo-dynamic>
-        } @placeholder {
-            <div class="viewport-placeholder">
-                <h3>🔄 Dynamic Component (Scroll to Load)</h3>
-                <p>This component will load and hydrate when it enters the viewport</p>
-                <div class="scroll-hint">👇 Scroll down to trigger loading + hydration</div>
-            </div>
-        }
+    
     </section>
 
     <!-- Hydration Strategies Demo -->
@@ -84,13 +73,7 @@
             <h3>💧 Incremental Hydration (On Interaction)</h3>
             @defer (hydrate on interaction) {
                 <app-chunk-demo-heavy></app-chunk-demo-heavy>
-            } @placeholder {
-                <div class="hydration-placeholder">
-                    <p><strong>SSR Content:</strong> Component is server-rendered but not yet interactive</p>
-                    <button disabled>Click me (not interactive yet)</button>
-                    <p><em>Click anywhere to hydrate and make interactive</em></p>
-                </div>
-            }
+            } 
         </div>
 
         <!-- Viewport-based Hydration -->
@@ -98,12 +81,7 @@
             <h3>👁️ Viewport-based Hydration</h3>
             @defer (hydrate on viewport) {
                 <app-chunk-demo-dynamic></app-chunk-demo-dynamic>
-            } @placeholder {
-                <div class="hydration-placeholder">
-                    <p><strong>SSR Content:</strong> Waiting to enter viewport for hydration</p>
-                    <div class="loading-indicator">⏳ Scroll down to trigger hydration</div>
-                </div>
-            }
+            } 
         </div>
         
         <!-- Timer-based Hydration -->
@@ -111,11 +89,6 @@
             <h3>⏰ Timer-based Hydration (3 seconds)</h3>
             @defer (hydrate on timer(3s)) {
                 <app-chunk-demo-light></app-chunk-demo-light>
-            } @placeholder {
-                <div class="hydration-placeholder timer-placeholder">
-                    <p><strong>SSR Content:</strong> Will auto-hydrate in 3 seconds</p>
-                    <div class="countdown">⏳ Waiting for timer...</div>
-                </div>
             }
         </div>
         
@@ -138,19 +111,8 @@
     <section *ngIf="activeDemo === 'cart'" class="demo-section">
         <h2>🛒 Spartacus Cart Integration Demo</h2>
         
-        <div class="explanation">
-            <h3>Cart Features Demonstrated:</h3>
-            <ul>
-                <li><strong>ActiveCartFacade:</strong> Real-time cart state management</li>
-                <li><strong>Cart Operations:</strong> Add, remove, update quantities</li>
-                <li><strong>User Integration:</strong> Anonymous and authenticated cart handling</li>
-                <li><strong>Performance Analytics:</strong> Cart operation monitoring</li>
-                <li><strong>Incremental Hydration:</strong> Cart loads only when needed</li>
-            </ul>
-        </div>
-        
         <!-- Spartacus Cart with Incremental Hydration -->
-        @defer (hydrate on interaction) {
+        @defer (on interaction; prefetch on interaction; hydrate on interaction) {
             <app-custom-cart></app-custom-cart>
         } @placeholder {
             <div class="placeholder-chunk">

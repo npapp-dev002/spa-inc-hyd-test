@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 import { provideClientHydration, withIncrementalHydration, withNoHttpTransferCache } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { AppModule } from './app.module';
+import { AppComponent } from '../app.component';
+import { AppModule } from '../app.module';
 import { provideServer } from '@spartacus/setup/ssr';
 
 @NgModule({

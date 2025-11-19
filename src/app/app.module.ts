@@ -10,13 +10,25 @@ import { SpartacusModule } from './spartacus/spartacus.module';
 import { MyProjectComponent } from './my-project/my-project.component';
 import { ChildComponentComponent } from './my-project/child-component/child-component.component';
 import { LazyLoadDirective } from './directives/lazy-load.directive';
+import { CustomCartComponent } from './components/custom-cart.component';
+import { ChunkDemoHeavyComponent } from './components/chunk-demo-heavy.component';
+import { ChunkDemoLightComponent } from './components/chunk-demo-light.component';
+import { DataIntensiveComponent } from './components/data-intensive.component';
+import { MediaPlayerComponent } from './components/media-player.component';
+import { FormWizardComponent } from './components/form-wizard.component';
 @NgModule({
   declarations: [
     AppComponent,
     MyProjectComponent,
-    ChildComponentComponent
+    ChildComponentComponent,
   ],
   imports: [
+    CustomCartComponent,
+    ChunkDemoHeavyComponent,
+    ChunkDemoLightComponent,
+    DataIntensiveComponent,
+    MediaPlayerComponent,
+    FormWizardComponent,
     BrowserModule,
     LazyLoadDirective,
     StoreModule.forRoot({}),

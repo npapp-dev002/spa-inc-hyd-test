@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --configuration=no-hmr",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:test-spartacus-hyd123": "NODE_TLS_REJECT_UNAUTHORIZED=0 node dist/test-spartacus-hyd123/server/server.mjs",
-    "build:ssr": "ng build",
+    "build:ssr": "ng build --configuration=production",
     "dev:hydration": "ng serve --port 4200",
-    "build:hydration": "ng build",
-    "serve:hydration": "npm run build:hydration && npm run serve:ssr:test-spartacus-hyd123"
+    "build:hydration": "ng build --configuration production",
+    "serve:hydration": "npm run build:hydration && npm run serve:ssr:test-spartacus-hyd123",
+    "dev:ssr": "ng build --configuration=development --watch & NODE_TLS_REJECT_UNAUTHORIZED=0 node dist/test-spartacus-hyd123/server/server.mjs"
   },
   "private": true,
   "dependencies": {
